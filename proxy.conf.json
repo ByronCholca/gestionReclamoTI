@@ -1,0 +1,7 @@
+{
+    "/cliente/*": {
+        "target": "https://dswac-backend.herokuapp.com/",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

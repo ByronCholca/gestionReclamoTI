@@ -1,0 +1,93 @@
+
+<!-- <p-button label="Click" (onClick)="handleClick($event)"></p-button>
+{{ clickMessage }} -->
+
+
+<!-- <div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+            No existen clientes registrados
+        </div>
+    </div>
+</div> -->
+
+<p-toast></p-toast>
+
+<div class="ui-g container border border-0">
+  <p-panel header="Administracion Clientes">
+    <div>
+      <p-menubar [model]="items"></p-menubar>
+    </div>
+    <p-table [value]="listClients" [columns]="cols" [responsive]="true" selectionMode="single"
+              [(selection)]="selectedClient" dataKey="id" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <!-- <th>Cedula</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Telefono</th> -->
+          <th *ngFor="let col of columns">{{col.headers}}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-client let-columns="columns">
+        <tr [pSelectableRow]="client">
+          <!-- <td>{{client.identificacion}}</td>
+          <td>{{client.nombres}}</td>
+          <td>{{client.apellidos}}</td>
+          <td>{{client.correo}}</td>
+          <td>{{client.telefono}}</td> -->
+          <td *ngFor="let col of columns" >
+          {{client[col.field] }}  
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+
+  <p-dialog header="Cliente" [(visible)]="displaySaveDialog">
+    <div class="container border border-0 mb-3">
+      <div class="row">
+        <div class="col-12 border border-0">
+          <div class="row">
+            <div class="col-6 border border-0">
+              <div class="row mb-3">
+                <div class="col-6 txtlabel">Cedula:</div>
+                <div class="col-6"><input class="form-control"  [(ngModel)]="cliente.identificacion" type="text" placeholder="ingresar cédula" aria-label="default input example"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-4 mb-3">
+            <div class="col txtlabel">Nombre:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="cliente.nombres" type="text" placeholder="nombre" aria-label="default input example">
+            </div>
+            <div class="col txtlabel">Apellido:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="cliente.apellidos" type="text" placeholder="apellido" aria-label="default input example">
+            </div>
+          </div>
+          <div class="row row-cols-4">
+            <div class="col txtlabel">Correo:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="cliente.correo" type="text" placeholder="mail" aria-label="default input example">
+            </div>
+            <div class="col txtlabel">Teléfono:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="cliente.telefono" type="text" placeholder="teléfono" aria-label="default input example">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <ng-template pTemplate="footer">
+    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Guardar"></button>
+  </ng-template>
+</p-dialog>
+
+</div>
+
+
+
+
+
+
+

@@ -9,7 +9,7 @@ export class Cliente {
 }
 
 export class TipoReclamo {
-    constructor(public id: number, public descripcion: string) {
+    constructor(public id: number = 0, public descripcion: string  = '') {
     }
 }
 

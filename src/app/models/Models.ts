@@ -14,13 +14,13 @@ export class TipoReclamo {
 }
 
 export class Usuario {
-    constructor(public id: number,
-        public identificacion: string,
-        public codigoUsuario: string,
-        public nombres: string,
-        public apellidos: string,
-        public telefono: string,
-        public correo: string) {
+    constructor(public id: number = 0,
+        public identificacion: string = '',
+        public codigoUsuario: string = '',
+        public nombres: string = '',
+        public apellidos: string = '',
+        public telefono: string = '',
+        public correo: string = '') {
 
     }
 } 

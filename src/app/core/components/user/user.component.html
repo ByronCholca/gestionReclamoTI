@@ -1,147 +1,81 @@
-<p>user works!</p>
+ 
+<p-toast></p-toast>
 
-<div class="container border border-2">
-    <div class="row">
-      <div class="col-8 border border-4">
-        <div>
-          <div class="mb-2">
-            Registro Clientes:
+<div class="ui-g container border border-0">
+  <p-panel header="Administracion Usuarios">
+    <div>
+      <p-menubar [model]="items"></p-menubar>
+    </div>
+    <p-table [value]="listUser" [columns]="cols" [responsive]="true" selectionMode="single"
+              [(selection)]="usuarioSelected" dataKey="id" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <!-- <th>Cedula</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Telefono</th> -->
+          <th *ngFor="let col of columns">{{col.headers}}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-columns="columns">
+        <tr [pSelectableRow]="user">
+          <!-- <td>{{client.identificacion}}</td>
+          <td>{{client.nombres}}</td>
+          <td>{{client.apellidos}}</td>
+          <td>{{client.correo}}</td>
+          <td>{{client.telefono}}</td> -->
+          <td *ngFor="let col of columns" >
+          {{user[col.field] }}  
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+
+  <p-dialog header="Usuarios" [(visible)]="displaySaveDialog">
+    <div class="container border border-0 mb-3">
+       <div class="row">
+        <div class="col-8 border border-4">
+          <div>
+            <div class="mb-2">
+              Registro Usuarios:
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-6 border border-0">
-            <div class="row mb-3">
-              <div class="col-6 txtlabel">Cedula:</div>
-              <div class="col-6"><input class="form-control" type="text" placeholder="ingresar cédula" aria-label="default input example"></div>
+          <div class="row row-cols-4 mb-3">
+            <div class="col txtlabel">Código:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.codigoUsuario"  type="text" placeholder="código" aria-label="default input example">
+            </div>
+            <div class="col txtlabel">Identificación:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.identificacion" type="text" placeholder="cédula" aria-label="default input example">
+            </div>
+          </div>
+          <div class="row row-cols-4 mb-3">
+            <div class="col txtlabel">Nombre:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.nombres" type="text" placeholder="nombre" aria-label="default input example">
+            </div>
+            <div class="col txtlabel">Apellido:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.apellidos" type="text" placeholder="apellido" aria-label="default input example">
+            </div>
+          </div>
+          <div class="row row-cols-4">
+            <div class="col txtlabel">Correo:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.correo" type="text" placeholder="mail" aria-label="default input example">
+            </div>
+            <div class="col txtlabel">Teléfono:</div>
+            <div class="col"><input class="form-control" [(ngModel)]="usuario.telefono" type="text" placeholder="teléfono" aria-label="default input example">
             </div>
           </div>
         </div>
-        <div class="row row-cols-4 mb-3">
-          <div class="col txtlabel">Nombre:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="nombre" aria-label="default input example">
-          </div>
-          <div class="col txtlabel">Apellido:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-          </div>
-        </div>
-        <div class="row row-cols-4">
-          <div class="col txtlabel">Correo:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="mail" aria-label="default input example">
-          </div>
-          <div class="col txtlabel">Teléfono:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-          </div>
-        </div>
       </div>
+      
     </div>
-  
-    <div class="row">
-      <div class="col-8 border border-4">
-        <div>
-          <div class="mb-2">
-            Registro Usuarios:
-          </div>
-        </div>
-        <div class="row row-cols-4 mb-3">
-          <div class="col txtlabel">Código:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="código" aria-label="default input example">
-          </div>
-          <div class="col txtlabel">Identificación:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="cédula" aria-label="default input example">
-          </div>
-        </div>
-        <div class="row row-cols-4 mb-3">
-          <div class="col txtlabel">Nombre:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="nombre" aria-label="default input example">
-          </div>
-          <div class="col txtlabel">Apellido:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="apellido"
-              aria-label="default input example">
-          </div>
-        </div>
-        <div class="row row-cols-4">
-          <div class="col txtlabel">Correo:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="mail" aria-label="default input example">
-          </div>
-          <div class="col txtlabel">Teléfono:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="teléfono"
-              aria-label="default input example">
-          </div>
-        </div>
-      </div>
-    </div>
-  
-  
-    <div class="row">
-      <div class="col-8 border border-4">
-        <div>
-          <div class="mb-2">
-            Tipo de Reclamo:
-          </div>
-        </div>
-        <div class="row row-cols-4 mb-3">
-          <div class="col txtlabel">Descripción:</div>
-          <div class="col"><input class="form-control" type="text" placeholder="descripción" aria-label="default input example">
-          </div>
-        </div>
-      </div>
-    </div>
-  
-  
-  
-  
-  <div class="row">
-    <div class="col-8 border border-4">
-      <div>
-        <div class="mb-2">
-          Ingreso de un Reclamo:
-        </div>
-      </div>
-      <div class="row row-cols-4 mb-3">
-        <div class="col txtlabel">Fecha:</div>
-        <div class="col">
-          <input id="endDate" class="form-control" type="date" />
-          <span id="endDateSelected"></span>
-        </div>
-        <div class="col txtlabel">Comentario:</div>
-        <div class="col"><input class="form-control" type="text" placeholder="comentario"
-            aria-label="default input example">
-        </div>
-      </div>
-      <div class="row row-cols-4 mb-3">
-        <div class="col txtlabel">Cliente:</div>
-        <div class="col">
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-        <div class="col txtlabel">Tipo Reclamo:</div>
-        <div class="col">
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-      <div class="row row-cols-4">
-        <div class="col txtlabel">Usuario:</div>
-        <div class="col">
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-    
-  </div>
+
+    <ng-template pTemplate="footer">
+    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Guardar"></button>
+  </ng-template>
+</p-dialog>
+
+</div>
+
   

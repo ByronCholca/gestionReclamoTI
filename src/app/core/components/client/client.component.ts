@@ -86,11 +86,7 @@ showSaveDialog(editar: boolean){
         command: () => this.showSaveDialog(true)
       }
     ]
-
-
   }
-
-
 
 
   getClienteALL(){
@@ -104,7 +100,6 @@ showSaveDialog(editar: boolean){
            }
            this.listClients = client;
          });
-         
   }
 
 
@@ -123,7 +118,6 @@ showSaveDialog(editar: boolean){
       console.log("error");
     }
     );
-    
   }
 
 

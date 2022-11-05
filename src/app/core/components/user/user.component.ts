@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/Models';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -35,7 +35,11 @@ export class UserComponent implements OnInit {
   };
 
 
-  constructor(private _userService: UsersService, private messageService: MessageService ) { }
+  constructor(
+    private _userService: UsersService, 
+    private messageService: MessageService,
+    private confirmService: ConfirmationService
+    ) { }
 
   ngOnInit(): void {
     this.getUserAll();
@@ -60,10 +64,15 @@ export class UserComponent implements OnInit {
         label: "Editar",
         icon: 'pi pi-fw pi-pencil',
         command: () => this.showSaveDialog(true)
+      }, {
+        label: "Eliminar",
+        icon: 'pi pi-fw pi-times',
+        command: () => this.delete()
       }
     ]
 
   }
+
 
 
   showSaveDialog(editar: boolean){
@@ -120,6 +129,42 @@ export class UserComponent implements OnInit {
       this.listUser[index] = usuario;
     }else{
       this.listUser.push(usuario)
+    }
+  }
+
+  delete(){
+
+    if(this.usuarioSelected == null || this.usuarioSelected.id == null){
+      this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
+      return;
+    }
+
+    this.confirmService.confirm({
+      message: "¿Esta seguro que desea eliminar el registro?",
+      accept: () =>{
+        this._userService.delete(this.usuarioSelected.id)
+        .subscribe((result:any) =>{
+            console.log('resultado eliminar');
+            console.log(result);
+            this.messageService.add({
+              severity:'success',
+              summary: 'Resultado',
+              detail: 'Usuario eliminado correctamente'
+            });
+            this.deleteObject(this.usuarioSelected.id);
+          },error =>{
+            console.log('error en eliminar');
+            console.log(error);
+          }
+        )
+      }
+    });    
+  }
+
+  deleteObject(id:number){
+    let index = this.listUser.findIndex((e)=> e.id == this.usuario.id);
+    if(index != -1){
+      this.listUser.splice(index,1);
     }
   }
 

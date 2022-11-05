@@ -16,8 +16,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MenubarModule} from 'primeng/menubar';
 import {DialogModule} from 'primeng/dialog';
 import {ToastModule} from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-
+import { MessageService, ConfirmationService } from 'primeng/api';
+import {ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -40,10 +40,13 @@ import { MessageService } from 'primeng/api';
     PanelModule,
     MenubarModule,
     DialogModule,
-    ToastModule
-
+    ToastModule,
+    ConfirmDialogModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    ConfirmationService
+  ],
   exports: [
     NavbarComponent,
     FooterComponent

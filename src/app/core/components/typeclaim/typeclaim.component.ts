@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TipoReclamo } from 'src/app/models/Models';
-import { MenuItem, MessageService } from 'primeng/api';                                                                                                                                                                         
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';                                                                                                                                                                         
 import { TypeClaimService } from 'src/app/services/type-claim.service';
 
 @Component({
@@ -25,7 +25,10 @@ export class TypeclaimComponent implements OnInit {
     descripcion:'',
   }
 
-  constructor(private typeClaimService: TypeClaimService, private messageService: MessageService ) { }
+  constructor(
+    private typeClaimService: TypeClaimService,
+    private messageService: MessageService,
+    private confirmService: ConfirmationService ) { }
 
 
   ngOnInit(): void {
@@ -102,6 +105,44 @@ export class TypeclaimComponent implements OnInit {
       this.listTypeClaim[index] = tipoReclamo;
     }else{
       this.listTypeClaim.push(tipoReclamo)
+    }
+  }
+
+
+  delete(){
+
+    if(this.tipoReclamoSelected == null || this.tipoReclamoSelected.id == null){
+      this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
+      return;
+    }
+
+    this.confirmService.confirm({
+      message: "¿Esta seguro que desea eliminar el registro?",
+      accept: () =>{
+        this.typeClaimService.delete(this.tipoReclamoSelected.id).subscribe(
+          (result:any) =>{
+            console.log('resultado eliminar');
+            console.log(result);
+            this.messageService.add({
+              severity:'success',
+              summary: 'Resultado',
+              detail: 'Tipo reclamo eliminado correctamente'
+            });
+            this.deleteObject(this.tipoReclamoSelected.id);
+          },error =>{
+            console.log('error en eliminar');
+            console.log(error);
+          }
+        )
+      }
+    });    
+  }
+
+
+  deleteObject(id:number){
+    let index = this.listTypeClaim.findIndex((e)=> e.id == this.tipoReclamo.id);
+    if(index != -1){
+      this.listTypeClaim.splice(index,1);
     }
   }
 

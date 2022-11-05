@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Cliente } from 'src/app/models/Models';
 import { ClientsService} from '../../../services/clients.service';
 
@@ -36,7 +36,10 @@ export class ClientComponent implements OnInit {
 
   clickMessage = "";
 
-  constructor( private _clientService:ClientsService,private messageService: MessageService) {
+  constructor(
+    private _clientService:ClientsService,
+    private messageService: MessageService,
+    private confirmService: ConfirmationService) {
     console.log("contructor client");
    }
 
@@ -74,7 +77,6 @@ showSaveDialog(editar: boolean){
       {field:"correo", headers: "Correo"},
     ];
 
-
     this.items = [
       {
         label: "Nuevo",
@@ -84,10 +86,13 @@ showSaveDialog(editar: boolean){
         label: "Editar",
         icon: 'pi pi-fw pi-pencil',
         command: () => this.showSaveDialog(true)
+      }, {
+        label: "Eliminar",
+        icon: 'pi pi-fw pi-times',
+        command: () => this.delete()
       }
     ]
   }
-
 
   getClienteALL(){
     this._clientService.getAll()
@@ -128,6 +133,42 @@ showSaveDialog(editar: boolean){
     }else{
       this.listClients.push(cliente)
     }
+  }
+
+deleteObject(id:number){
+  let index = this.listClients.findIndex((e)=> e.id == this.cliente.id);
+  if(index != -1){
+    this.listClients.splice(index,1);
+  }
+}
+
+  delete(){
+
+    if(this.selectedClient == null || this.selectedClient.id == null){
+      this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
+      return;
+    }
+
+    this.confirmService.confirm({
+      message: "¿Esta seguro que desea eliminar el registro?",
+      accept: () =>{
+        this._clientService.deleteOK(this.selectedClient.id).subscribe(
+          (result:any) =>{
+            console.log('resultado eliminar');
+            console.log(result);
+            this.messageService.add({
+              severity:'success',
+              summary: 'Resultado',
+              detail: 'Persona eliminada correctamente'
+            });
+            this.deleteObject(this.selectedClient.id);
+          },error =>{
+            console.log('error en eliminar');
+            console.log(error);
+          }
+        )
+      }
+    });    
   }
 
 

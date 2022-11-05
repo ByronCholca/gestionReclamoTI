@@ -1,6 +1,6 @@
 
 <p-toast></p-toast>
-
+<p-confirmDialog header="Confirmation" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <div class="ui-g container border border-0">
   <p-panel header="Administracion Clientes">
     <div>
@@ -15,7 +15,10 @@
           <th>Apellido</th>
           <th>Correo</th>
           <th>Telefono</th> -->
-          <th *ngFor="let col of columns">{{col.headers}}</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.headers}}
+            <p-sortIcon field="col.field"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-client let-columns="columns">
@@ -63,7 +66,6 @@
           </div>
         </div>
       </div>
-      
     </div>
 
     <ng-template pTemplate="footer">

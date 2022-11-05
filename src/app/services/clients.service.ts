@@ -32,12 +32,9 @@ export class ClientsService {
     return this.http.delete(this.baseURL+"/cliente/delete/" + id)
   }
 
-
-
-
-
-
-
+  deleteOK(id:number) {
+   return this.http.delete(this.baseURL+"/cliente/delete/" + id)
+   }
 
   getClient()  {
     return this.http.get('https://dswac-backend.herokuapp.com/cliente/all');

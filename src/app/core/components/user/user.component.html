@@ -10,23 +10,16 @@
               [(selection)]="usuarioSelected" dataKey="id" [paginator]="true" [rows]="10">
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <!-- <th>Cedula</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Correo</th>
-          <th>Telefono</th> -->
-          <th *ngFor="let col of columns">{{col.headers}}</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.headers}}
+            <p-sortIcon field="col.field"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-user let-columns="columns">
         <tr [pSelectableRow]="user">
-          <!-- <td>{{client.identificacion}}</td>
-          <td>{{client.nombres}}</td>
-          <td>{{client.apellidos}}</td>
-          <td>{{client.correo}}</td>
-          <td>{{client.telefono}}</td> -->
-          <td *ngFor="let col of columns" >
-          {{user[col.field] }}  
+          <td *ngFor="let col of columns">
+            {{user[col.field] }}
           </td>
         </tr>
       </ng-template>

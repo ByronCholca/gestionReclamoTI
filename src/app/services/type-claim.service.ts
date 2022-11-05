@@ -24,7 +24,6 @@ export class TypeClaimService {
     return this.http.post(this.baseURL + "/tipoReclamo/save", JSON.stringify(tipoReclamo), {headers:headers});
   }
 
-
   delete(id:number) : Observable<any>{
     return this.http.delete(this.baseURL+"/tipoReclamo/delete/" + id)
   }

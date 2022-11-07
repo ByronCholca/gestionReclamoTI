@@ -49,6 +49,10 @@ export class TypeclaimComponent implements OnInit {
         label: "Editar",
         icon: 'pi pi-fw pi-pencil',
         command: () => this.showSaveDialog(true)
+      }, {
+        label: "Eliminar",
+        icon: 'pi pi-fw pi-times',
+        command: () => this.delete()
       }
     ]
 
@@ -140,7 +144,7 @@ export class TypeclaimComponent implements OnInit {
 
 
   deleteObject(id:number){
-    let index = this.listTypeClaim.findIndex((e)=> e.id == this.tipoReclamo.id);
+    let index = this.listTypeClaim.findIndex((e)=> e.id == id);
     if(index != -1){
       this.listTypeClaim.splice(index,1);
     }

@@ -136,7 +136,7 @@ showSaveDialog(editar: boolean){
   }
 
 deleteObject(id:number){
-  let index = this.listClients.findIndex((e)=> e.id == this.cliente.id);
+  let index = this.listClients.findIndex((e)=> e.id == id);
   if(index != -1){
     this.listClients.splice(index,1);
   }
@@ -170,9 +170,5 @@ deleteObject(id:number){
       }
     });    
   }
-
-
- 
-  
 
 }

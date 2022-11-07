@@ -18,6 +18,8 @@ import {DialogModule} from 'primeng/dialog';
 import {ToastModule} from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import {ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
+import {CalendarModule} from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import {ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
     MenubarModule,
     DialogModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   providers: [
     MessageService,

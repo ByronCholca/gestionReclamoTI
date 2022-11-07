@@ -132,8 +132,7 @@ export class UserComponent implements OnInit {
     }
   }
 
-  delete(){
-
+  delete() {
     if(this.usuarioSelected == null || this.usuarioSelected.id == null){
       this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
       return;
@@ -162,7 +161,7 @@ export class UserComponent implements OnInit {
   }
 
   deleteObject(id:number){
-    let index = this.listUser.findIndex((e)=> e.id == this.usuario.id);
+    let index = this.listUser.findIndex((e)=> e.id == id);
     if(index != -1){
       this.listUser.splice(index,1);
     }

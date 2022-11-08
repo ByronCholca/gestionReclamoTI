@@ -1,8 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { Cliente, Reclamo, ReclamoVista, Usuario } from 'src/app/models/Models';
+import { Cliente, Reclamo, ReclamoVista, TipoReclamo, Usuario } from 'src/app/models/Models';
 import { ClaimsService } from 'src/app/services/claims.service';
+import { ClientsService } from 'src/app/services/clients.service';
+import { TypeClaimService } from 'src/app/services/type-claim.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-claim',
@@ -16,24 +19,42 @@ export class ClaimComponent implements OnInit {
   cols: any;
   items: MenuItem[] = [];
   displaySaveDialog: boolean = false;
-  cliente = new Cliente();
+  clienteAPI = new Cliente();
   usuario = new Usuario();
   reclamo = new ReclamoVista();
+  reclamoAPI = new Reclamo();
   reclamoSelected = new ReclamoVista();
-  fechaReclamoS: string = '28/10/2022';
-  fechaReclamD: Date = new Date();
-  date1: Date = new Date();
+  
+  // fechaReclamoS: string = '28/10/2022';
+  // fechaReclamD: Date = new Date();
+  // date1: Date = new Date();
 
   //reclamo = new Reclamo(0,"",new Date(), )
 
+  listClients: Cliente[] = [];
+  clientSelect?: any;
+  listTypeClaim: TipoReclamo[] = [];
+  tipoReclamoSelected?: any;
+  listUser: Usuario[] = [];
+  usuarioSelected:any;
+
   constructor(
     private _claimsService: ClaimsService, 
+    private _clientService:ClientsService,
+    private typeClaimService: TypeClaimService,
+    private _userService: UsersService,
     private messageService: MessageService,
     private confirmService: ConfirmationService
     ) { }
 
   ngOnInit(): void {
     this.getClaimsAll();
+
+    this.getClienteALL();
+
+    this.getTypeClaimAll();
+
+    this.getUserAll();
 
     this.cols = [
       {field:"id", headers: "ID"},
@@ -64,7 +85,6 @@ export class ClaimComponent implements OnInit {
   getClaimsAll() {
     this._claimsService.getAll()
       .subscribe((result: any) => {
-        console.log(result);
         let reclamos: Reclamo[] = [];
         for (let i = 0; i < result.length; i++) {
           let claimR = result[i] as Reclamo;
@@ -74,42 +94,54 @@ export class ClaimComponent implements OnInit {
           this.listReclamoVista.push(claimVista);
         }
         //this.listReclamo = reclamos;
-        console.log("listReclamo");
       });
   }
 
   claimToClainVista(claimR:Reclamo): ReclamoVista{
 
     let id = claimR.id;
-    let fechaReclam = '25/09/2022';
-    // = claimR.fechaReclamo;
-    
+    //let fechaReclam = claimR.fechaReclamo.toLocaleString();
+    let fechaReclam = claimR.fechaReclamo;
     let coment = claimR.comentario;
     let desc = claimR.tipoReclamo.descripcion;
     let nomCli = claimR.cliente.nombres + " " + claimR.cliente.apellidos;
     let nomUser = claimR.usuario.nombres + " " + claimR.usuario.apellidos;
     let claimVista = new ReclamoVista(id, coment, fechaReclam, desc, nomCli, nomUser);
+    claimVista.clienteID = claimR.cliente.id;
+    claimVista.tipoReclamoID = claimR.tipoReclamo.id;
+    claimVista.usuarioID = claimR.usuario.id;
+    // const [year, month, day] = fechaReclam.split('/');
 
+    // const date = new Date(+year, +month - 1, +day);
+
+    // claimVista.fechaReclamoD = date;
     return claimVista;
   }
 
 
   save(){
-    console.log('guardando reclamo');
-    console.log(this.reclamo);
-    let reclam = new Reclamo();
-    this._claimsService.save(reclam).subscribe(
-    (result: any) => {
-      console.log(result);
-      let claimR = result as Reclamo;
-      let claimVista = this.claimToClainVista(claimR);
-      this.validarReclamo(claimVista);
-      this.messageService.add({severity:'success', summary:'Resultado', detail:'El reclamo se guardo correctamente'});
-      this.displaySaveDialog = false;
-    },
-    error =>{
-      console.log("error");
-    });
+    this.armarObjeto();
+  }
+  
+  saveAPI(){
+    this._claimsService.save(this.reclamoAPI).subscribe(
+      (result: any) => {
+        let claimR = result as Reclamo;
+        let claimVista = this.claimToClainVista(claimR);
+        this.validarReclamo(claimVista);
+        this.messageService.add({severity:'success', summary:'Resultado', detail:'El reclamo se guardo correctamente'});
+        this.displaySaveDialog = false;
+      },
+      error =>{
+        console.log("error al grabar");
+      });
+  }
+
+  armarObjeto() {
+    this.reclamoAPI.id = this.reclamo.id;
+    this.reclamoAPI.comentario = this.reclamo.comentario;
+    this.reclamoAPI.fechaReclamo = this.reclamo.fechaReclamo;
+    this.getClientID();
   }
 
 
@@ -127,6 +159,9 @@ export class ClaimComponent implements OnInit {
     if(editar){
       if(this.reclamoSelected != null && this.reclamoSelected.id != 0){
         this.reclamo = this.reclamoSelected;
+        this.clientSelect = this.reclamoSelected.clienteID;
+        this.tipoReclamoSelected = this.reclamoSelected.tipoReclamoID;
+        this.usuarioSelected = this.reclamoSelected.usuarioID;        
       }else{
         this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});
         return;
@@ -134,6 +169,9 @@ export class ClaimComponent implements OnInit {
      
     }else{
       this.reclamo = new ReclamoVista();
+      this.clientSelect = new Cliente();
+      this.tipoReclamoSelected = new TipoReclamo();
+      this.usuario = new Usuario();
     }
     this.displaySaveDialog = true;
   }
@@ -150,8 +188,6 @@ export class ClaimComponent implements OnInit {
       accept: () =>{
         this._claimsService.delete(this.reclamoSelected.id)
         .subscribe((result:any) =>{
-            console.log('resultado eliminar');
-            console.log(result);
             this.messageService.add({
               severity:'success',
               summary: 'Resultado',
@@ -167,13 +203,74 @@ export class ClaimComponent implements OnInit {
     });    
   }
 
-  deleteObject(id:number){
-    let index = this.listReclamoVista.findIndex((e)=> e.id == id);
-    if(index != -1){
-      this.listReclamoVista.splice(index,1);
+  deleteObject(id: number) {
+    let index = this.listReclamoVista.findIndex((e) => e.id == id);
+    if (index != -1) {
+      this.listReclamoVista.splice(index, 1);
     }
   }
 
+  getClienteALL(){
+    this._clientService.getAll()
+         .subscribe( (result:any) =>{
+           let client:Cliente[] = [];           
+           for (let i = 0; i < result.length; i++) {
+            let persona = result[i] as Cliente;  
+            persona.nombreCompleto = persona.apellidos + " " + persona.nombres;     
+            client.push(persona);  
+           }
+           this.listClients = client;
+         });
+  }
 
+  getClientID(){
+   return this._clientService.getClientID(this.clientSelect)
+         .subscribe( (result:any) =>{
+          this.clienteAPI = result;
+          this.reclamoAPI.cliente = this.clienteAPI;
+          this.getTypeClaimID();
+         });
+  }
+
+  getTypeClaimAll() {
+    this.typeClaimService.getAll()
+      .subscribe((result: any) => {
+        let typeClaim: TipoReclamo[] = [];
+        for (let i = 0; i < result.length; i++) {
+          let tipoCla = result[i] as TipoReclamo;
+          typeClaim.push(tipoCla);
+        }
+        this.listTypeClaim = typeClaim;
+      });
+  }
+
+  getTypeClaimID() {
+    return this.typeClaimService.getTypeClaimID(this.tipoReclamoSelected)
+          .subscribe( (result:any) =>{
+           this.reclamoAPI.tipoReclamo = result;
+           this.getUserID();
+          });
+   }
+
+
+  getUserAll(){
+    this._userService.getAll()
+         .subscribe( (result:any) =>{
+           let user:Usuario[] = [];           
+           for (let i = 0; i < result.length; i++) {
+            let persona = result[i] as Usuario;       
+            user.push(persona);  
+           }
+           this.listUser = user;
+         });
+  }
+
+  getUserID() {
+    return this._userService.getUserID(this.usuarioSelected)
+          .subscribe( (result:any) =>{
+           this.reclamoAPI.usuario = result;
+           this.saveAPI();
+          });
+   }
 
 }

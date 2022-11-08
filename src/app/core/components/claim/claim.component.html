@@ -1,9 +1,3 @@
-<div class="container border border-2">
-  
-
-  </div>
-
-  
 <p-toast></p-toast>
 <p-confirmDialog header="Confirmation" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
@@ -38,49 +32,49 @@
         <div class="row row-cols-4 mb-3">
           <div class="col txtlabel">Fecha:</div>
           <div class="col">
-             <input id="endDate" class="form-control" type="date" [(ngModel)]="fechaReclamD" dateFormat="dd/mm/yyyy" />
+             <!-- <input id="endDate" class="form-control" type="date" [(ngModel)]="reclamo.fechaReclamo" dateFormat="dd/mm/yyyy" />
+             <input id="endDate" class="form-control" type="date" [(ngModel)]="reclamo.fechaReclamoD" dateFormat="dd/mm/yyyy" />
+             <p-calendar inputId="basic" [(ngModel)]="reclamo.fechaReclamoD"></p-calendar> 
+             <input type="date" #myDate [value]="reclamo.fechaReclamoD" dateFormat="dd/mm/yyyy" (input)="reclamo.fechaReclamoD=parseDate(myDate.value)" />-->
+             <input class="form-control" [(ngModel)]="reclamo.fechaReclamo" type="text" placeholder="dd/mm/yyyy" aria-label="default input example"> 
           </div>
-          <div class="col">
-            <p-calendar [(ngModel)]="fechaReclamD" dateFormat="dd/mm/yy"></p-calendar>
-            <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
-         </div>
           <div class="col txtlabel">Comentario:</div>
-          <div class="col"><input class="form-control" [(ngModel)]="reclamo.comentario" type="text" placeholder="comentario" aria-label="default input example">
+          <div class="col">
+            <input class="form-control" [(ngModel)]="reclamo.comentario" type="text" placeholder="comentario" aria-label="default input example">
           </div>
         </div>
         <div class="row row-cols-4 mb-3">
           <div class="col txtlabel">Cliente:</div>
           <div class="col">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
               <option selected>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
-            </select>
+            </select> -->
+            <p-dropdown [options]="listClients" [(ngModel)]="clientSelect" optionLabel="nombreCompleto" optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="30" ></p-dropdown>
           </div>
           <div class="col txtlabel">Tipo Reclamo:</div>
           <div class="col">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <!-- <select class="form-select form-select-sm" aria-label=".form-select-sm example">
               <option selected>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-        <div class="row row-cols-4">
-          <div class="col txtlabel">Usuario:</div>
-          <div class="col">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+            </select> -->
+            <p-dropdown [options]="listTypeClaim" [(ngModel)]="tipoReclamoSelected" optionLabel="descripcion" optionValue="id"
+              [virtualScroll]="true" [virtualScrollItemSize]="30"></p-dropdown>
+            </div>
+            </div>
+            <div class="row row-cols-4">
+              <div class="col txtlabel">Usuario:</div>
+              <div class="col">
+                <p-dropdown [options]="listUser" [(ngModel)]="usuarioSelected" optionLabel="nombres" optionValue="id"
+                  [virtualScroll]="true" [virtualScrollItemSize]="30"></p-dropdown>
+              </div>
+            </div>
+            </div>
+            </div>
   
     <ng-template pTemplate="footer">
       <button type="button" pButton icon="fa fa-check" (click)="save()" label="Guardar"></button>

@@ -28,5 +28,9 @@ export class UsersService {
     return this.http.delete(this.baseURL+"/usuario/delete/" + id);
   } 
 
+  getUserID(id:any){
+    return this.http.get(this.baseURL+"/usuario/find/" + id);
+  }
+
 
 }

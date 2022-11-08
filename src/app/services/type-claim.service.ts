@@ -28,4 +28,9 @@ export class TypeClaimService {
     return this.http.delete(this.baseURL+"/tipoReclamo/delete/" + id)
   }
 
+
+  getTypeClaimID(id:any){
+    return this.http.get(this.baseURL+"/tipoReclamo/find/" + id);
+  }
+
 }

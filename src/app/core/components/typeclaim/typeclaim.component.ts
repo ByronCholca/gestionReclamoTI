@@ -32,7 +32,7 @@ export class TypeclaimComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getUserAll();
+    this.getTypeClaimAll();
 
     this.cols = [
       {field:"id", headers: "ID"},
@@ -73,7 +73,7 @@ export class TypeclaimComponent implements OnInit {
     this.displaySaveDialog = true;
   }
 
-  getUserAll(){
+  getTypeClaimAll(){
     this.typeClaimService.getAll()
          .subscribe( (result:any) =>{
           console.log(result);

@@ -16,6 +16,11 @@ export class ClientsService {
   constructor(private http: HttpClient) {
     console.log("Servicios listo para usar");
   }
+
+
+  getClientID(idClient:any){
+    return this.http.get(this.baseURL+"/cliente/find/" + idClient);
+  }
   
   getAll(): Observable<any>{
     return  this.http.get(this.baseURL + '/cliente/all');
@@ -29,7 +34,7 @@ export class ClientsService {
 
 
   delete(id:number) : Observable<any>{
-    return this.http.delete(this.baseURL+"/cliente/delete/" + id)
+    return this.http.delete(this.baseURL+"/cliente/delete/" + id);
   }
 
   deleteOK(id:number) {

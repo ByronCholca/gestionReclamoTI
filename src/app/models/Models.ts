@@ -8,6 +8,7 @@ export class Cliente {
     apellidos: string;
     telefono: string;
     correo: string;
+    nombreCompleto?: string;
 
     constructor(id: number = 0,
         identificacion: string = '',
@@ -45,12 +46,12 @@ export class Usuario {
 export class Reclamo {
     id: number;
     comentario: string;
-    fechaReclamo: Date;
+    fechaReclamo: string;
     cliente: Cliente;
     usuario: Usuario;
     tipoReclamo: TipoReclamo;
 
-    constructor(id: number = 0, comentario: string = '', fechaReclamo: Date = new Date()
+    constructor(id: number = 0, comentario: string = '', fechaReclamo: string = ''
         //, usuario:Usuario, tipoReclamo:TipoReclamo
     ) {
         this.id = id;
@@ -69,7 +70,10 @@ export class ReclamoVista {
     descripcionReclamo: string = '';
     nombreCliente: string = '';
     nombreUsuario: string = '';
-
+    fechaReclamoD?: Date;
+    clienteID?:number;
+    tipoReclamoID?:number;
+    usuarioID?:number;
 
     constructor(id: number = 0, comentario: string = '', fechaReclamo: string = '', descripcionReclamo: string = '',
         nombreCliente: string = '', nombreUsuario: string = '') {

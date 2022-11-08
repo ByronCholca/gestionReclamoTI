@@ -70,7 +70,6 @@ export class UserComponent implements OnInit {
         command: () => this.delete()
       }
     ]
-
   }
 
 

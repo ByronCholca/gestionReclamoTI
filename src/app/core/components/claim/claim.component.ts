@@ -14,6 +14,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class ClaimComponent implements OnInit {
 
+  public loading:boolean;
   //listReclamo: Reclamo[] = [];
   listReclamoVista: ReclamoVista[] = [];
   cols: any;
@@ -45,7 +46,9 @@ export class ClaimComponent implements OnInit {
     private _userService: UsersService,
     private messageService: MessageService,
     private confirmService: ConfirmationService
-    ) { }
+    ) {
+      this.loading = true;
+     }
 
   ngOnInit(): void {
     this.getClaimsAll();
@@ -92,6 +95,8 @@ export class ClaimComponent implements OnInit {
           let claimVista = this.claimToClainVista(claimR);
 
           this.listReclamoVista.push(claimVista);
+
+          this.loading = false;
         }
         //this.listReclamo = reclamos;
       });

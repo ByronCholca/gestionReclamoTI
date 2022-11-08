@@ -10,7 +10,7 @@ import { ClientsService} from '../../../services/clients.service';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
-
+  public loading:boolean;
   forma!: FormGroup;
   listClients: Cliente[] = [];
   cols:any;
@@ -40,7 +40,7 @@ export class ClientComponent implements OnInit {
     private _clientService:ClientsService,
     private messageService: MessageService,
     private confirmService: ConfirmationService) {
-    console.log("contructor client");
+    this.loading = true;
    }
 
   handleClick($event: any) {
@@ -102,6 +102,7 @@ showSaveDialog(editar: boolean){
            for (let i = 0; i < result.length; i++) {
             let persona = result[i] as Cliente;       
             client.push(persona);  
+            this.loading = false;
            }
            this.listClients = client;
          });

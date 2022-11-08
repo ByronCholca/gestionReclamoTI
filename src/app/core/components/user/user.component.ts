@@ -9,7 +9,7 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
+  public loading:boolean;
   listUser: Usuario[] = [];
   cols:any;
   items: MenuItem[] = [];
@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
     private _userService: UsersService, 
     private messageService: MessageService,
     private confirmService: ConfirmationService
-    ) { }
+    ) { this.loading = true; }
 
   ngOnInit(): void {
     this.getUserAll();
@@ -99,6 +99,7 @@ export class UserComponent implements OnInit {
             user.push(persona);  
            }
            this.listUser = user;
+           this.loading = false;
          });
   }
 

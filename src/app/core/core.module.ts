@@ -20,6 +20,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import {ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 
 
 
@@ -47,7 +49,8 @@ import {DropdownModule} from 'primeng/dropdown';
     ToastModule,
     ConfirmDialogModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    ProgressSpinnerModule
   ],
   providers: [
     MessageService,

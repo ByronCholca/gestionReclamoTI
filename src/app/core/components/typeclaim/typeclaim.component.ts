@@ -9,7 +9,7 @@ import { TypeClaimService } from 'src/app/services/type-claim.service';
   styleUrls: ['./typeclaim.component.css']
 })
 export class TypeclaimComponent implements OnInit {
-
+  public loading:boolean;
   listTypeClaim: TipoReclamo[] = [];
   cols:any;
   items: MenuItem[] = [];
@@ -28,7 +28,9 @@ export class TypeclaimComponent implements OnInit {
   constructor(
     private typeClaimService: TypeClaimService,
     private messageService: MessageService,
-    private confirmService: ConfirmationService ) { }
+    private confirmService: ConfirmationService ) {
+      this.loading = true;
+     }
 
 
   ngOnInit(): void {
@@ -83,6 +85,7 @@ export class TypeclaimComponent implements OnInit {
             typeClaim.push(tipoCla);  
            }
            this.listTypeClaim = typeClaim;
+           this.loading = false;
          });
   }
 

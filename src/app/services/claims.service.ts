@@ -13,7 +13,6 @@ export class ClaimsService {
   constructor(private http: HttpClient) {
   }
 
-
   getAll(): Observable<any>{
     return  this.http.get(this.baseURL + '/reclamo/all');
   }

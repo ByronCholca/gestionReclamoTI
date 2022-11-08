@@ -2,7 +2,11 @@
 <p-toast></p-toast>
 <p-confirmDialog header="Confirmation" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
-<div class="ui-g container border border-0">
+<div *ngIf="loading" class="centroloading" >
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div class="ui-g container border border-0" *ngIf="loading == false">
   <p-panel header="Administracion Usuarios">
     <div>
       <p-menubar [model]="items"></p-menubar>

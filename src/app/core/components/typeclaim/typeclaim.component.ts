@@ -118,7 +118,7 @@ export class TypeclaimComponent implements OnInit {
 
   delete(){
 
-    if(this.tipoReclamoSelected == null || this.tipoReclamoSelected.id == null){
+    if(this.tipoReclamoSelected == null || this.tipoReclamoSelected.id == null || this.tipoReclamoSelected.id == 0){
       this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
       return;
     }

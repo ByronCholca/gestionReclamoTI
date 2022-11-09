@@ -133,7 +133,7 @@ export class UserComponent implements OnInit {
   }
 
   delete() {
-    if(this.usuarioSelected == null || this.usuarioSelected.id == null){
+    if(this.usuarioSelected == null || this.usuarioSelected.id == null || this.usuarioSelected.id == 0){
       this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
       return;
     }

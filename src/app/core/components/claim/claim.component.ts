@@ -183,7 +183,7 @@ export class ClaimComponent implements OnInit {
 
 
   delete() {
-    if(this.reclamoSelected == null || this.reclamoSelected.id == null){
+    if(this.reclamoSelected == null || this.reclamoSelected.id == null || this.reclamoSelected.id == 0){
       this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
       return;
     }

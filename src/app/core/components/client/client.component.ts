@@ -144,8 +144,9 @@ deleteObject(id:number){
 }
 
   delete(){
-
-    if(this.selectedClient == null || this.selectedClient.id == null){
+    console.log('eliminar');
+    
+    if(this.selectedClient == null || this.selectedClient.id == null || this.selectedClient.id == 0){
       this.messageService.add({severity:'warn', summary: 'Advertencia', detail: 'Por favor seleccione un registro'});    
       return;
     }

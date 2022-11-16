@@ -95,9 +95,8 @@ export class ClaimComponent implements OnInit {
           let claimVista = this.claimToClainVista(claimR);
 
           this.listReclamoVista.push(claimVista);
-
-          this.loading = false;
         }
+        this.loading = false;
         //this.listReclamo = reclamos;
       });
   }

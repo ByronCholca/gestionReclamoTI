@@ -102,8 +102,8 @@ showSaveDialog(editar: boolean){
            for (let i = 0; i < result.length; i++) {
             let persona = result[i] as Cliente;       
             client.push(persona);  
-            this.loading = false;
            }
+           this.loading = false;
            this.listClients = client;
          });
   }

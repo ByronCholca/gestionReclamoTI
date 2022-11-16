@@ -1,7 +1,4 @@
-import { DatePipe } from "@angular/common";
-
 export class Cliente {
-   
     id: number;
     identificacion: string;
     nombres: string;
@@ -9,13 +6,7 @@ export class Cliente {
     telefono: string;
     correo: string;
     nombreCompleto?: string;
-
-    constructor(id: number = 0,
-        identificacion: string = '',
-        nombres: string = '',
-        apellidos: string = '',
-        telefono: string = '',
-        correo: string = '') {
+    constructor(id: number = 0, identificacion: string = '',  nombres: string = '', apellidos: string = '', telefono: string = '', correo: string = '') {
         this.id = id;
         this.identificacion = identificacion;
         this.nombres = nombres;
@@ -26,22 +17,13 @@ export class Cliente {
 }
 
 export class TipoReclamo {
-    constructor(public id: number = 0, public descripcion: string  = '') {
-    }
+    constructor(public id: number = 0, public descripcion: string  = '') {}
 }
 
 export class Usuario {
-    constructor(public id: number = 0,
-        public identificacion: string = '',
-        public codigoUsuario: string = '',
-        public nombres: string = '',
-        public apellidos: string = '',
-        public telefono: string = '',
-        public correo: string = '') {
-
-    }
+    constructor(public id: number = 0, public identificacion: string = '', public codigoUsuario: string = '', public nombres: string = '',
+        public apellidos: string = '', public telefono: string = '', public correo: string = '') {}
 } 
-
 
 export class Reclamo {
     id: number;
@@ -50,7 +32,6 @@ export class Reclamo {
     cliente: Cliente;
     usuario: Usuario;
     tipoReclamo: TipoReclamo;
-
     constructor(id: number = 0, comentario: string = '', fechaReclamo: string = ''
         //, usuario:Usuario, tipoReclamo:TipoReclamo
     ) {
@@ -74,7 +55,6 @@ export class ReclamoVista {
     clienteID?:number;
     tipoReclamoID?:number;
     usuarioID?:number;
-
     constructor(id: number = 0, comentario: string = '', fechaReclamo: string = '', descripcionReclamo: string = '',
         nombreCliente: string = '', nombreUsuario: string = '') {
         this.id = id;
